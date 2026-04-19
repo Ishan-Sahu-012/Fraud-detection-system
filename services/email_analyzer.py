@@ -13,11 +13,23 @@ def analyze_email(email: str):
     link_data=check_links(email)
 
     if link_data["total_links"]>0:
-        score
+        score+=1
+        reasons.append("contains link ")
+
+    if len(link_data["suspicious_links"])>0:
+        score+=2
+        reasons.append("suspicious link detected")
+
+    if score>=3:
+        result="phishing "
+    else:
+        result="safe"
+
 
     return {
         "result": result,
         "score": score,
-        "reasons": reasons
+        "reasons": reasons,
+        "links": link_data
     }
 
